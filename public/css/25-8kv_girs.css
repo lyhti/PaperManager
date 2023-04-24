@@ -1,0 +1,122 @@
+.record_25-8kv-tg {
+    border-collapse: collapse;
+    border-spacing: 0;
+    table-layout: fixed;
+    width: 920px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.record_25-8kv-tg td {
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    overflow: hidden;
+    padding: 10px 5px;
+    word-break: normal;
+}
+
+.record_25-8kv-tg th {
+    border-style: solid;
+    border-width: 1px;
+    font-family: Arial, sans-serif;
+    font-size: 28px;
+    font-weight: normal;
+    padding: 10px 5px ;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.record_25-8kv-tg .record_25-8kv-tg-lboi {
+    border-color: inherit;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.record_25-8kv-tg .record_25-8kv-tg-9wq8 {
+    border-color: inherit;
+    text-align: center;
+    vertical-align: middle
+}
+
+.record_25-8kv-tg .record_25-8kv-tg-a128 {
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+}
+
+.record_25-8kv-tg .record_25-8kv-tg-inpt15 {
+    text-align: center;
+    vertical-align: middle;
+    width: 15%;
+}
+
+.record_25-8kv-tg .record_25-8kv-tg-inpt30 {
+    text-align: center;
+    vertical-align: middle;
+    width: 30%;
+}
+.record_25-8kv-tg .record_25-8kv-tg-inpt50 {
+    text-align: center;
+    vertical-align: middle;
+    width: 50%;
+}
+
+.record_25-8kv-tg .record_25-8kv-tg-inpt60 {
+    text-align: center;
+    vertical-align: middle;
+    width: 60%;
+}
+
+.record_25-8kv-tg .record_25-8kv-tg-inpt100 {
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.record_25-8kv-tg .record_25-8kv-tg-bt {
+    border:none;
+    background-color: white;
+    position: static;
+}
+
+select {
+    text-align: center;
+    background: #FFFFFF;
+    color: #000000;
+    vertical-align: middle;
+    height: 23px;
+}
+
+.record_25-8kv-tg .txtarea {
+    resize: none;
+    overflow-y: hidden;
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.record_25-8kv-tg .txtarea_left {
+    resize: none;
+    vertical-align: middle;
+    text-align: left;
+    padding: 10px;
+    min-height: 200px;
+    width: 100%;
+}
+
+pre {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.txtarea_30{
+    width: 30%;
+    resize: none;
+    overflow-y: hidden;
+    text-align: center;
+    vertical-align: middle;
+}

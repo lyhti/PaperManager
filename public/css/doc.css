@@ -1,0 +1,5 @@
+.inquiry:hover{
+    cursor: pointer;
+    /* background-color: rgb(204, 198, 198); */
+    text-decoration: underline;
+}

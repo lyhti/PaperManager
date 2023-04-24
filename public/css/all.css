@@ -1,0 +1,113 @@
+tbody {
+    margin: 0;
+    padding: 0;
+}
+
+.master-content {
+    margin-left: 15%;
+    margin-top: 1%;
+    padding: 0 80px 30px 80px;
+}
+
+.document-table-search {
+    text-align: right;
+    margin-bottom: 3%;
+}
+
+.nodata {
+    text-align: center;
+    border: solid 1px;
+    border-color: #dee2e6;
+    vertical-align: middle !important;
+}
+
+.btngroup {
+    text-align: center;
+    margin: 10px 10px 10px 10px;
+}
+
+.btngroup button {
+    display: none;
+}
+
+.td_over {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.input-file-btn {
+    margin-top: 15px;
+    padding: 6px 25px;
+    background-color: #007bff;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+}
+.del-file-btn {
+    margin-top: 15px;
+    padding: 6px 25px;
+    background-color: #da4545;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+}
+
+.pdf-btn {
+    text-align: right;
+}
+
+.pagination {
+    margin: 0.4rem 0 0 0;
+}
+
+#contents {
+    margin:0 auto;
+}
+
+#back-to-top {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background-image: url("../image/Scroll-to-top-button.png");
+    background-position: center;
+    text-align: center;
+    border-radius: 4px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    transition: background-color .3s,
+    opacity .5s, visibility .5s;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+}
+
+#back-to-top::after {
+    /*content: "\f077";*/
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 2em;
+    line-height: 50px;
+    color: #fff;
+}
+#back-to-top:hover {
+    cursor: pointer;
+    /*background-color: #333;*/
+}
+#back-to-top:active {
+    /*background-color: #555;*/
+}
+#back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+:disabled{
+    background-color: #ffffff;
+}
+a{
+    text-decoration-line: none;
+    color: black;
+}

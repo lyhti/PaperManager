@@ -1,0 +1,180 @@
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+button, input {
+    overflow: visible;
+}
+
+.sign_wrap {
+    position: relative;
+    width: 600px;
+    margin: 0 auto;
+    padding-bottom: 65px;
+}
+
+.btn-wrap {
+    margin: 25px 0;
+    text-align: center;
+}
+
+.input-error {
+    color: #d62728;
+}
+
+.register-header, .register-body{
+    text-align: center;
+}
+
+.desc {
+    display: block;
+    margin-bottom: 16px;
+    font-size: 20px;
+    line-height: 24px;
+    color: #000;
+    text-align: center;
+}
+
+.sign-type {
+    text-align: center;
+    box-sizing: border-box;
+    display: inline-block;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-position-y: 20px;
+    background-size: 50px;
+}
+
+.sign-type a {
+    display: block;
+    width: 222px;
+    height: 110px;
+    padding-top: 80px;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: center;
+    color: #9b9b9b;
+    font-weight: bold;
+    border: 1px solid #d6d6d6;
+    border-radius: 16px;
+    box-sizing: border-box;
+}
+
+.register-body .sign-active a {
+    background-image: url('../bootstrap/bootstrap-icons-1.10.2/file-earmark-person-fill.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-position-y: 20px;
+    background-size: 50px;
+    background-color: #00a59d;
+    color: #fff;
+    border-color: #00a59d;
+}
+
+.sign-enterprise {
+    background-image: url('../bootstrap/bootstrap-icons-1.10.2/building-check.svg');
+}
+
+.sign-user {
+    background-image: url('../bootstrap/bootstrap-icons-1.10.2/file-earmark-person.svg');
+    margin-left: 30px;
+}
+
+.sign_wrap .sign-info {
+    display: none;
+    margin-top: 32px;
+    text-align: center;
+}
+
+.table {
+    table-layout: fixed;
+    width: 100%;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.table.type1 {
+    margin-bottom: 0;
+    text-align: center;
+    border-bottom: 1px solid #d6d6d6;
+}
+
+.table.type1 th {
+    border-bottom: 1px solid #9b9b9b;
+}
+
+.table.type1 th, .table.type1 td {
+    padding: 9px 7px;
+    border-right: 1px solid #d6d6d6;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.table .thead-light th {
+    color: rgba(0, 0, 0, 0.87);
+    background-color: #ededed;
+    border-color: #ededed;
+}
+
+.table .type2 {
+    border: 1px solid #d6d6d6;
+}
+
+.table td, .table th {
+    border-top: 1px solid #d6d6d6;
+}
+
+.table.type2 tbody tr th, .table.type2 tbody tr td {
+    padding: 8px;
+    font-size: 14px;
+    line-height: 22px;
+    vertical-align: middle;
+    border-left: 1px solid #d6d6d6;
+}
+
+.inp {
+    display: inline-block;
+    height: 32px;
+    padding: 0 9px;
+    color: #000;
+    font-size: 14px;
+    line-height: 30px;
+    border: 0;
+    border-bottom: 1px solid #d6d6d6;
+}
+
+.inp.inp-round {
+    border: 1px solid #d6d6d6;
+    border-radius: 8px;
+}
+
+.width-full {
+    width: 100% !important;
+}
+
+.width-30 {
+    width: 30.41% !important;
+}
+
+.bootstrap-select .dropdown-menu .inner {
+    max-height: 150px !important;
+}
+
+.confirm-btn {
+    margin: 0;
+    padding: 0;
+}
+
+.input-group {
+    width: 50%;
+}
+
+.input-group input[name=zip] {
+    width: 23%;
+    display: inline-block;
+    margin-right: 3%;
+}
+
+.input-group input[name=address] {
+    width: 50%;
+    display: inline-block;
+}
