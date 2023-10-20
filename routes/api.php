@@ -25,7 +25,10 @@ Route::prefix('app')->group(function () {
     Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('logOut', [LoginAPIController::class, 'logOut']);
         Route::get('getDocType', [DocumentTypeAPIController::class, 'getDocType']);
+        Route::get('getCrntDocType', [DocumentTypeAPIController::class, 'getCrntDocType']);
         Route::get('getDocColList', [DocumentColumnAPIController::class, 'getDocColList']);
+        Route::get('getCrntDocColList', [DocumentColumnAPIController::class, 'getCrntDocColList']);
+        Route::get('getDocColListWithVersion', [DocumentColumnAPIController::class, 'getDocColListWithVersion']);
         Route::get('getDocList', [DocumentAPIController::class, 'getDocList']);
         Route::get('getDocData', [DocumentDataAPIController::class, 'getDocData']);
         Route::post('insertDocData', [DocumentDataAPIController::class, 'insertDocData']);

@@ -33,6 +33,12 @@ class DocumentDataController extends Controller {
         $crud = "crud-r";
         $docSn = $request->input('docSn');
 
+        $dataVersion = 1;
+        $viewVersion = 1;
+
+        Log::info(sprintf("%s - line %d, DocumentDataController - index", __FILE__, __LINE__));
+        Log::info($request);
+
         // document_sn 번호 유무
         if ($docSn) {
             $docSn = base64_decode($docSn);
@@ -59,6 +65,34 @@ class DocumentDataController extends Controller {
             }
         } else {
             $crud = "crud-c";
+
+            if($docType == 'work_sft_mtg_risk_asmt_edu_jrnl') {
+                $result = DB::table('document_type')
+                                ->select('document_type_sn', 'data_version', 'view_version')
+                                ->where('code_abbreviation', $docType)
+                                ->where('crnt', 1)
+                                ->first();
+                $dataVersion = $result->data_version;
+                $viewVersion = $result->view_version;
+
+                Log::info(sprintf("%s - line %d : %s", __FILE__, __LINE__, $docType.'.'.$docType.'_v_'.strval($viewVersion)));
+
+                return view($docType.'.'.$docType.'_v_'.strval($viewVersion) , compact('crud', 'docSn', 'docType', 'dataVersion', 'viewVersion'));
+            }
+        }
+
+        if($docType == 'work_sft_mtg_risk_asmt_edu_jrnl') {
+            $result = DB::table('document_type')
+                ->select('document_type_sn', 'data_version', 'view_version')
+                ->where('code_abbreviation', $docType)
+                ->where('crnt', 1)
+                ->first();
+            $dataVersion = $result->data_version;
+            $viewVersion = $result->view_version;
+
+            Log::info(sprintf("%s - line %d : %s", __FILE__, __LINE__, $docType.'.'.$docType.'_v_'.strval($viewVersion)));
+
+            return view($docType.'.'.$docType.'_v_'.strval($viewVersion) , compact('crud', 'docSn', 'docType', 'dataVersion', 'viewVersion'));
         }
 
         return view($docType.'.'.$docType , compact('crud', 'docSn', 'docType'));
@@ -244,11 +278,200 @@ class DocumentDataController extends Controller {
 
         array_push($rtnArray, $data);
 
+        Log::info("rtnArray");
+        Log::info($rtnArray);
+
         return $rtnArray;
+    }
+
+
+    /** 작업안전 체크리스트(S17 철구 조립 및 모선배선공사) document 조회 */
+    public function getworksftchcklists17(Request $request) {
+        $docSn = $request->input('docSn');
+        $docTypeCd = $request->input('docTypeCd');
+        $rtnData = new Collection();
+        $rtnArray = [];
+
+        Log::info('DocumentDataController::getworksftchcklists17 - docTypeCd');
+        Log::info($docTypeCd);
+
+        if ($docSn != null && $docSn != "") {
+            $rtn = Document::selectRaw('dd.document_data_value, dc.document_column_value')
+            ->join('document_data as dd', 'document.document_sn', '=', 'dd.document_sn')
+            ->join('document_column as dc', 'dd.document_column_sn', '=', 'dc.document_column_sn')
+            ->where('document.entrps_sn', Auth::user()->entrps_sn)
+            ->where('document.document_sn', $docSn)
+            ->wherenull('dd.del_dt')
+            ->get();
+
+            foreach ($rtn as $row) { $rtnData->put($row->document_column_value, $row->document_data_value); }
+        } else {
+            $rtn = DocumentColumn::selectRaw('document_column.document_column_value, document_column.document_column_default_value')
+            ->join('document_Type as dt', 'document_column.document_type_sn', '=', 'dt.document_type_sn')
+            ->where('dt.document_type_sn', $docTypeCd)
+            ->wherenull('document_column.del_dt')
+            ->get();
+
+            Log::info($rtn);
+            Log::info("rtn");
+            foreach ($rtn as $row) { $rtnData->put($row->document_column_value, $row->document_column_default_value); }
+        }
+
+        $data = view('work_sft_chck_list_s17.work_sft_chck_list_s17_tables.work_sft_chck_list_s17_table', compact('rtnData','docSn'))->render();
+
+        array_push($rtnArray, $data);
+
+        return $rtnArray;
+    }
+
+
+    /** 작업전후 안전회의 및 위험성평가 후 교육일지 document 조회 */
+    public function getworksftmtgriskasmtedujrnl(Request $request) {
+        $docSn = $request->input('docSn');
+        $docTypeCd = $request->input('docTypeCd');
+        $rtnData = new Collection();
+        $rtnArray = [];
+
+        if ($docSn != null && $docSn != "") {
+            $rtn = Document::selectRaw('dd.document_data_value, dc.document_column_value')
+            ->join('document_data as dd', 'document.document_sn', '=', 'dd.document_sn')
+            ->join('document_column as dc', 'dd.document_column_sn', '=', 'dc.document_column_sn')
+            ->where('document.entrps_sn', Auth::user()->entrps_sn)
+            ->where('document.document_sn', $docSn)
+            ->wherenull('dd.del_dt')
+            ->get();
+
+            foreach ($rtn as $row) { $rtnData->put($row->document_column_value, $row->document_data_value); }
+        } else {
+            $rtn = DocumentColumn::selectRaw('document_column.document_column_value, document_column.document_column_default_value')
+            ->join('document_Type as dt', 'document_column.document_type_sn', '=', 'dt.document_type_sn')
+            ->where('dt.document_type_sn', $docTypeCd)
+            ->wherenull('document_column.del_dt')
+            ->get();
+
+            Log::info($rtn);
+            Log::info("rtn");
+            foreach ($rtn as $row) { $rtnData->put($row->document_column_value, $row->document_column_default_value); }
+        }
+
+        $data = view('work_sft_mtg_risk_asmt_edu_jrnl.work_sft_mtg_risk_asmt_edu_jrnl_tables.work_sft_mtg_risk_asmt_edu_jrnl_table', compact('rtnData','docSn'))->render();
+
+        array_push($rtnArray, $data);
+
+        return $rtnArray;
+    }
+
+
+    /** 중량물 취급 작업계획서 document 조회 */
+    public function gethvymtrlhndlworkplan(Request $request) {
+        Log::info("gethvymtrlhndlworkplan");
+
+        $docSn = $request->input('docSn');
+        $docTypeCd = $request->input('docTypeCd');
+        $rtnData = new Collection();
+        $rtnArray = [];
+
+        if ($docSn != null && $docSn != "") {
+            $rtn = Document::selectRaw('dd.document_data_value, dc.document_column_value')
+            ->join('document_data as dd', 'document.document_sn', '=', 'dd.document_sn')
+            ->join('document_column as dc', 'dd.document_column_sn', '=', 'dc.document_column_sn')
+            ->where('document.entrps_sn', Auth::user()->entrps_sn)
+            ->where('document.document_sn', $docSn)
+            ->wherenull('dd.del_dt')
+            ->get();
+
+            foreach ($rtn as $row) { $rtnData->put($row->document_column_value, $row->document_data_value); }
+        } else {
+            $rtn = DocumentColumn::selectRaw('document_column.document_column_value, document_column.document_column_default_value')
+            ->join('document_Type as dt', 'document_column.document_type_sn', '=', 'dt.document_type_sn')
+            ->where('dt.document_type_sn', $docTypeCd)
+            ->wherenull('document_column.del_dt')
+            ->get();
+
+            Log::info($rtn);
+            Log::info("rtn");
+            foreach ($rtn as $row) { $rtnData->put($row->document_column_value, $row->document_column_default_value); }
+        }
+
+        $data = view('hvy_mtrl_hndl_work_plan.hvy_mtrl_hndl_work_plan_tables.hvy_mtrl_hndl_work_plan_table', compact('rtnData','docSn'))->render();
+
+        array_push($rtnArray, $data);
+
+        return $rtnArray;
+    }
+
+
+    /** 위험성평가(송전-가공)-측량 document 조회 */
+    public function getRskAsmsPwrtOvhdSrvy(Request $request) {
+        $docSn = $request->input('docSn');
+        $docTypeCd = $request->input('docTypeCd');
+        $rtnData = new Collection();
+        $rtnArray = [];
+
+        Log::info(sprintf("%s - line %d, DocumentDataController - getRskAsmsPwrtOvhdSrvy", __FILE__, __LINE__));
+
+        if ($docSn != null && $docSn != "") {
+            $rtn = Document::selectRaw('dd.document_data_value, dc.document_column_value')
+            ->join('document_data as dd', 'document.document_sn', '=', 'dd.document_sn')
+            ->join('document_column as dc', 'dd.document_column_sn', '=', 'dc.document_column_sn')
+            ->where('document.entrps_sn', Auth::user()->entrps_sn)
+            ->where('document.document_sn', $docSn)
+            ->wherenull('dd.del_dt')
+            ->get();
+
+            foreach ($rtn as $row) { $rtnData->put($row->document_column_value, $row->document_data_value); }
+
+            $tabcnt = Document::where('document_sn', $docSn)->value('tab_cnt');
+
+            for ($i = 1; $i <= $tabcnt; $i++) {
+                ${"data0".$i} = view('construc.construc_tables.construc_table0'.$i, compact('rtnData', 'docSn'))->render();
+                array_push($rtnArray, ${"data0".$i});
+            }
+        } else {
+            Log::info(sprintf("%s - line %d, DocumentDataController - getRskAsmsPwrtOvhdSrvy", __FILE__, __LINE__));
+
+            $rtn = DocumentColumn::selectRaw('document_column.document_column_value, document_column.document_column_default_value')
+            ->join('document_Type as dt', 'document_column.document_type_sn', '=', 'dt.document_type_sn')
+            ->where('dt.code_abbreviation', $docTypeCd)
+            ->wherenull('document_column.del_dt')
+            ->get();
+
+            foreach ($rtn as $row) { $rtnData->put($row->document_column_value, $row->document_column_default_value); }
+
+            Log::info(sprintf("%s - line %d, DocumentDataController - getRskAsmsPwrtOvhdSrvy", __FILE__, __LINE__));
+
+            $data01 = view('rsk_asmt_pwrt_ovhd_srvy.rsk_asmt_pwrt_ovhd_srvy_tables.rsk_asmt_pwrt_ovhd_srvy_table01', compact('rtnData', 'docSn'))->render();
+            $data02 = view('rsk_asmt_pwrt_ovhd_srvy.rsk_asmt_pwrt_ovhd_srvy_tables.rsk_asmt_pwrt_ovhd_srvy_table02', compact('rtnData', 'docSn'))->render();
+            $data03 = view('rsk_asmt_pwrt_ovhd_srvy.rsk_asmt_pwrt_ovhd_srvy_tables.rsk_asmt_pwrt_ovhd_srvy_table03', compact('rtnData', 'docSn'))->render();
+
+            Log::info(sprintf("%s - line %d, DocumentDataController - getRskAsmsPwrtOvhdSrvy", __FILE__, __LINE__));
+
+            array_push($rtnArray, $data01);
+            array_push($rtnArray, $data02);
+            array_push($rtnArray, $data03);
+
+            Log::info(sprintf("%s - line %d, DocumentDataController - getRskAsmsPwrtOvhdSrvy", __FILE__, __LINE__));
+
+        }
+
+        return $rtnArray;
+    }
+
+    /** 위험성평가(송전-가공)-측량 탭 추가 */
+    public function insertRskAsmtPwrtOvhdSrvyTab(Request $request) {
+        $docSn = $request->input('docSn');
+        $crud = $request->input('crud');
+        $tab = $request->input('tab');
+        $rtnData = new Collection;
+
+        return view('rsk_asmt_pwrt_ovhd_srvy.rsk_asmt_pwrt_ovhd_srvy_tables.rsk_asmt_pwrt_ovhd_srvy_table0'.$tab, compact('rtnData', 'docSn', 'crud'));
     }
 
     /** document insert */
     public function insertData(Request $request) {
+        Log::info('insertData');
+        Log::info($request);
+
         $docTypeCd = $request->input('docTypeCd');
         $service = new Controller();
         $sessionEsn = Auth::user()->entrps_sn;
@@ -340,6 +563,10 @@ class DocumentDataController extends Controller {
         $sessionUsn = Auth::user()->user_sn;
         $service = new Controller();
         $docTypeSn = DocumentType::where('code_abbreviation', $docTypeCd)->first()->document_type_sn;
+
+        Log::info("DocumentDateController::updateData");
+        Log::info($request);
+
 
         try {
             DB::transaction(function () use ($sessionUsn, $request, $service, $docTypeSn) {

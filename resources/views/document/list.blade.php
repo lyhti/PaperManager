@@ -90,6 +90,7 @@
     </table>
     <div class="pdf-btn">
         <button type="button" class="btn btn-primary btn-l" onclick="openPdfModal();">PDF 출력</button>
+        <button type="button" class="btn btn-primary btn-l" onclick="openPdfModal1();">PDF 출력1</button>
     </div>
     <div>
         <table class="table" style="width: 580px;">
@@ -120,6 +121,7 @@
                     </button>
                 </div>
                 <div class="modal-body" id="pdfdata"></div>
+                <div class="modal-body" id="pdfdata_temp"></div>
                 <div><table id="pdfConts"></table></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" onclick="closeModal();">취  소</button>
@@ -437,6 +439,8 @@
                     success: function (response) {
                         for (const [i, data] of response.entries()) {
                             // 개폐동작특성시험, 시공사진 - 사진 미포함시, pdf 출력 배제
+                            console.log(i);
+                            console.log(data);
                             if (data.indexOf('construc') != -1) {
                                 if (i != 0) {
                                     // 이미지가 없으면 pdf 출력 빼기
@@ -474,9 +478,9 @@
                             }
                         }
 
-                        $('#pdfdata input, select, textarea').css({"border": "none", "appearance": "none"});
-                        $('#pdfdata input, textarea').attr("readonly", true);
-                        $('#pdfdata select').attr("disabled", true);
+                        // $('#pdfdata input, select, textarea').css({"border": "none", "appearance": "none"});
+                        // $('#pdfdata input, textarea').attr("readonly", true);
+                        // $('#pdfdata select').attr("disabled", true);
                     },
                     error: function (error) {
                         console.log(error);
@@ -498,6 +502,120 @@
             }, 1000)
         }
 
+
+
+
+        // pdf modal 출력
+        function openPdfModal1() {
+            let list;
+            let lists = new Array;
+            // let gap = "<div id='gap' style='height: 80px;'></div>";        
+            let gap = "<div id='gap' style='height: 10px;'></div>";        // 문서 사이 여백 넣기
+
+            if (Array.isArray(chkData) && chkData.length == 0) {
+                alert('선택 된 문서가 없습니다.');
+                return false;
+            }
+
+            $('#div_for_loader').html(loader);          // Loader 실행
+            $('#pdfdata').empty();
+
+            // for (const item of chkData) {
+            for(var i = 0; i < chkData.length; i++) {
+                var item = chkData[i];
+                
+                console.log('item');
+                console.log(item);
+
+                $.ajax({
+                    type: 'get',
+                    url: 'documentPdf',
+                    async: false,
+                    data: {
+                        docSn: item.docSn,
+                        docType: item.type
+                    },
+                    success: function (response) {
+                        $('#pdfdata_temp').empty();
+
+                        $('#pdfdata_temp').append(response[0]);
+
+                        console.log('response[0]');
+                        console.log(response[0]);
+
+                        $('#pdfdata').append($('#pdfdata_temp').find('#contents')[0]);
+
+                        if(i < chkData.length - 1) {
+                            $('#pdfdata').append(gap);
+                            $('#pdfdata').append("<div style='page-break-before:always'></div>");
+                            $('#pdfdata').append(gap);
+                        }
+                        // $('#pdfdata').append("<div style='page-break-before:always'></div>");
+
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        $('#load_screen').remove(); // Loader 제거
+                        if (error.statusText == 'Unauthorized') {
+                            alert("다른 기기에서 접속하였습니다.\n로그인 정보가 해제됩니다.");
+                            location.href = '/login';
+                        } else {
+                            alert('PDF 불러오기 중 오류가 발생했습니다.');
+                        }
+                    }
+                });
+            }
+            // $("#docPdfData").modal('show');
+
+            // $('#pdfdata input, select, textarea').css({"border": "none", "appearance": "none"});
+            // $('#pdfdata input, textarea').attr("readonly", true);
+
+            // $('#pdfdata select').attr("disabled", true);
+            $('#pdfdata input[type=text]').css({"border": "none", "appearance": "none"});
+            $('#pdfdata input[type=date]').css({"border": "none", "appearance": "none"});
+            $('#pdfdata input[type=button]').css({"border": "none","background-color" : "transparent"});
+            $('#pdfdata textarea').css({"border": "none", "appearance": "none"});
+            $('#pdfdata select').css({"border": "none", "appearance": "none"});
+            // $('#pdfdata img').css({"border": "none"});
+            $('#pdfdata img').attr("border", "none");
+
+            console.log('pdfdata img');
+            console.log($('#pdfdata img'));
+
+            console.log('pdfdata button');
+            console.log($('#pdfdata input[type=button]'));
+
+            $('#pdfdata input[type=text]').attr("readonly", true);
+            $('#pdfdata input[type=date]').attr("readonly", true);
+            $('#pdfdata textarea').attr("readonly", true);
+            $('#pdfdata select').css("pointer-events", "none");
+
+            // var divContents = $("#docPdfData").html();
+            var divContents = $("#pdfdata").html();
+            // var printWindow = window.open('', '', 'height=400,width=800');
+            var printWindow = window.open('', '', '');
+            printWindow.document.write('<html><head><title>PDF 출력</title>');
+            printWindow.document.write('<style> ');
+            printWindow.document.write(' @media print { td { -webkit-print-color-adjust: exact; print-color-adjust: exact; }} ');
+            printWindow.document.write(' @media print { hr { display: none; } } ');
+            printWindow.document.write(' img[src=""]:empty {border: none;} ');
+            printWindow.document.write(' </style> ');
+            printWindow.document.write('</head><body >');
+            printWindow.document.write(divContents);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            setTimeout(function() {
+                printWindow.print();
+            }, 1000);
+
+
+            // 1초 후 로더 제거
+            setTimeout(function () {
+                $('#load_screen').remove();                 // Loader 제거
+            }, 1000)
+        }
+
+
         /**
          * 모달 닫기 - modal body 에 append 한 데이터 삭제
          * */
@@ -510,19 +628,29 @@
 
         // pdf 저장
         function savePdf() {
-            $('#div_for_loader').html(loader);          // Loader 실행
+            console.log('savePDF');
+            console.log($('#pdfdata').html());
+            html2pdf().from($('#pdfdata').html()).set({
+            // margin: 0,
+            margin: 13,
+            filename: 'test.pdf',
+            html2canvas: { scale: 1 },
+            jsPDF: {orientation: 'portrait', unit: 'mm', format: 'a4', compressPDF: true}
+            }).save();
 
-            // 문서 사이 여백 숨기기
-            $('#gap').hide()
+            // $('#div_for_loader').html(loader);          // Loader 실행
 
-            let txtArea = document.getElementById('pdfdata').querySelectorAll('.txtarea');
+            // // 문서 사이 여백 숨기기
+            // $('#gap').hide()
 
-            txtArea.forEach(function(data) {
-                // html2canvas 사용 시, textarea 개행 불가로 인한 임시 태그 변경
-                data.outerHTML = data.outerHTML.replaceAll('textarea', 'pre');
-            });
+            // let txtArea = document.getElementById('pdfdata').querySelectorAll('.txtarea');
 
-            pdfPrint();
+            // txtArea.forEach(function(data) {
+            //     // html2canvas 사용 시, textarea 개행 불가로 인한 임시 태그 변경
+            //     data.outerHTML = data.outerHTML.replaceAll('textarea', 'pre');
+            // });
+
+            // pdfPrint();
         }
 
         function pdfPrint() {

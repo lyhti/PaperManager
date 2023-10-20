@@ -30,6 +30,10 @@ class DocumentDataController extends Controller {
             $view = "inspection.$view";
         }
 
+        Log::info("kkk");
+        Log::info("docSn : $docSn");
+        Log::info("view : $view");
+
         return view("$view", compact('docSn', 'docType'));
     }
 

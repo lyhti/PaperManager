@@ -12,5 +12,6 @@
 <script type="text/javascript" src="{{ asset('js/html2canvas.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/scrollTop.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/signature_pad.umd.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/html2pdf.bundle.js') }}"></script>
 @stack('custom-scripts')
 <!-- custom-scripts Ends -->

@@ -43,13 +43,13 @@
                 </td>
                 <td class="align-center wd-mm-15 font-15" rowspan="3">
                     <input type="text" class="align-center border-line wd-mm-13" name="weather" value="{{ $rtn->get('weather') == null ? '' : $rtn->get('weather') }}"/>
-                    {{--                    <input type="hidden" class="align-center border-line wd-mm-18 display-none" name="weather" value="{{ $rtn->get('weather') == null ? '' : $rtn->get('weather') }}"/>--}}
-                    {{--                    <select class="border-line align-center" name="selectWeather" onchange="choWeather();">--}}
-                    {{--                        <option value="맑음">맑음</option>--}}
-                    {{--                        <option value="흐림">흐림</option>--}}
-                    {{--                        <option value="비">비</option>--}}
-                    {{--                        <option value="직접입력">직접입력</option>--}}
-                    {{--                    </select>--}}
+{{--                    <input type="hidden" class="align-center border-line wd-mm-18 display-none" name="weather" value="{{ $rtn->get('weather') == null ? '' : $rtn->get('weather') }}"/>--}}
+{{--                    <select class="border-line align-center" name="selectWeather" onchange="choWeather();">--}}
+{{--                        <option value="맑음">맑음</option>--}}
+{{--                        <option value="흐림">흐림</option>--}}
+{{--                        <option value="비">비</option>--}}
+{{--                        <option value="직접입력">직접입력</option>--}}
+{{--                    </select>--}}
                 </td>
                 <td class="align-center font-15" rowspan="2">
                     <span>최저</span>
@@ -595,7 +595,7 @@
             <span class="font-17">대&nbsp;&nbsp;영&nbsp;&nbsp;종&nbsp;&nbsp;합&nbsp;&nbsp;산&nbsp;&nbsp;기&nbsp;&nbsp;(주)</span>
         </div>
         <div class="dist-right-mm-3" style="float: right">
-            {{--            <span class="font-17">시공관리책임자&nbsp;&nbsp;&nbsp;&nbsp;김&nbsp;&nbsp;용&nbsp;&nbsp;태&nbsp;&nbsp;</span>--}}
+{{--            <span class="font-17">시공관리책임자&nbsp;&nbsp;&nbsp;&nbsp;김&nbsp;&nbsp;용&nbsp;&nbsp;태&nbsp;&nbsp;</span>--}}
             <span class="font-17">시공관리책임자&nbsp;&nbsp;</span>
             <input type="text" class="align-center border-line wd-mm-30 font-17" name="spvs_nm" value="{{ $rtn->get('spvs_nm') == null ? '' : $rtn->get('spvs_nm') }}"/>
             <label style="position: relative;">

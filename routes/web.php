@@ -23,6 +23,7 @@ Route::get('/', function () { return view('main'); });
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index'); //TODO:삭제예정
 
 Route::get('ttestt', function () { return view('ttestt.ttestt'); });
+Route::get('ttestt2', function () { return view('ttestt.ttestt2'); });
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', function () { return view('auth.login'); })->name('login');
@@ -49,14 +50,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/pdf_content', function () { return view('pdf.pdf_content'); });
 
     Route::get('{docType}/create', [\App\Http\Controllers\DocumentDataController::class, 'index']);
-    Route::get('{docType}/getDoc', [\App\Http\Controllers\DocumentDataController::class, 'index']);         // DocumentData 조회
+
+    /** dev - main merge 전 route 임시 주석 */
+//    Route::get('{docType}/getDoc', [\App\Http\Controllers\DocumentDataController::class, 'index']);         // DocumentData 조회
+
     Route::get('/getDocData', [\App\Http\Controllers\DocumentDataController::class, 'getDocData']);             // DocumentType 조회
     Route::post('/insert2', [\App\Http\Controllers\DocumentDataController::class, 'insertData']);               // 문서 insert (공통)   TODO: 수정필요 - 명칭
     Route::post('/update2', [\App\Http\Controllers\DocumentDataController::class, 'updateData']);               // 문서 update (공통)   TODO: 수정필요 - 명칭
 
 
+
     Route::get('/getDocType', [DocumentTypeController::class, 'getDocType']);           // DocumentType 조회
-//    Route::get('{docTypeCd}/getDoc', [DocumentDataController::class, 'index']);         // DocumentData 조회
+    Route::get('{docTypeCd}/getDoc', [DocumentDataController::class, 'index']);         // DocumentData 조회
     Route::post('insert', [DocumentDataController::class, 'insertData']);               // 문서 insert (공통)   TODO: 수정필요 - 명칭
     Route::post('update', [DocumentDataController::class, 'updateData']);               // 문서 update (공통)   TODO: 수정필요 - 명칭
 
@@ -89,4 +94,26 @@ Route::middleware('auth')->group(function () {
         Route::get('getConstruc', [DocumentDataController::class, 'getconstruc']);      // 문서 frame 조회
         Route::get('insertTab',[DocumentDataController::class, 'insertTab']);          // 페이지(tab) 추가
     });
+
+    // 작업안전 체크리스트(S17 철구 조립 및 모선배선공사)
+    Route::group(['prefix' => 'work_sft_chck_list_s17'], function() {
+        Route::get('getWorkshtchcklists17', [DocumentDataController::class, 'getworksftchcklists17']);      // 문서 frame 조회
+    });
+
+    // 작업전후 안전회의 및 위험성평가 후 교육일지
+    Route::group(['prefix' => 'work_sft_mtg_risk_asmt_edu_jrnl'], function() {
+        Route::get('getWorksftmgtriskasmtedujrnl', [DocumentDataController::class, 'getworksftmtgriskasmtedujrnl']);      // 문서 frame 조회
+    });
+
+    // 중량물 취급 작업계획서
+    Route::group(['prefix' => 'hvy_mtrl_hndl_work_plan'], function() {
+        Route::get('getHvymtrlhndlworkplan', [DocumentDataController::class, 'gethvymtrlhndlworkplan']);      // 문서 frame 조회
+    });
+
+    // 위험성 평가(송전 - 가공)  - 측량
+    Route::group(['prefix' => 'rsk_asmt_pwrt_ovhd_srvy'], function() {
+        Route::get('getRskAsmsPwrtOvhdSrvy', [DocumentDataController::class, 'getRskAsmsPwrtOvhdSrvy']);      // 문서 frame 조회
+        Route::get('insertTab',[DocumentDataController::class, 'insertTab']);          // 페이지(tab) 추가
+    });
+
 });

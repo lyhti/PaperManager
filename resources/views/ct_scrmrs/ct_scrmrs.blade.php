@@ -106,6 +106,8 @@
                     docTypeCd: docTypeCd,
                 },
                 success: function(response) {
+                    console.log('CT 2차회로 저항 측정 기록표 response');
+                    console.log(response);
                     $('#ct_scrmrs').html(response);
                     if (crud == "crud-r") {
                         $('#ct_scrmrs input').attr("readonly", true);
@@ -265,6 +267,9 @@
             // 담당자 사인 가져오기
             var img1 = $("#chkSign")[0]; // img 태그 객체
 
+            console.log('img1');
+            console.log(img1);
+
             if (img1.src.split('/')[0] == 'data:image') {
                 var bstr = atob(img1.src.split(",")[1]);
                 var n = bstr.length;
@@ -277,6 +282,8 @@
                 var chkSign1 = new File([u8arr], "chkSign1.png", {
                     type: "mime"
                 });
+                console.log('chkSign1');
+                console.log(chkSign1);
                 formData.append('spvs_sign_file_name', chkSign1);
             }
 
@@ -295,6 +302,10 @@
          * Insert Or Update Ajax
          * */
         function ajaxConnec(data, url, formData) {
+            console.log('ajaxConnec');
+            console.log(data);
+            console.log(url);
+            console.log(formData);
 
             $.ajax({
                 type: 'post',

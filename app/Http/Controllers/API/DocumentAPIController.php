@@ -26,7 +26,7 @@ class DocumentAPIController extends Controller {
 
             $rtn = Document::selectRaw(
                 'document.document_sn, document.document_type_sn, dt.document_type_nm, dt.code_abbreviation,
-                document.title, users.user_nm, document.tab_cnt, document.crt_dt, document.udt_dt',
+                document.title, document.data_version, document.view_version, users.user_nm, document.tab_cnt, document.crt_dt, document.udt_dt',
             )
                 ->leftjoin('document_type as dt', 'document.document_type_sn', '=', 'dt.document_type_sn')
                 ->join('users', 'document.udt_user_sn', '=', 'users.user_sn')
@@ -42,6 +42,8 @@ class DocumentAPIController extends Controller {
             }
 
             $rtn = $rtn->orderBy('document.document_sn', 'DESC');
+
+            Log::info(sprintf("%s - line %d - %d", __FILE__, __LINE__, $rtn->count()));
 
             return $this->sendResponse($rtn->paginate($paginate), 'User retrieved successfully');
         } catch (Exception $e){

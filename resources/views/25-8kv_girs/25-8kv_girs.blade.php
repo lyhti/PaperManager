@@ -338,6 +338,11 @@
             var img1 = $("#chkSign1")[0]; // img 태그 객체
             var img2 = $("#chkSign2")[0]; // img 태그 객체
 
+            console.log('img1');
+            console.log(img1);
+            console.log('img2');
+            console.log(img2);
+
             if (img1.src.split('/')[0] == 'data:image') {
                 var bstr = atob(img1.src.split(",")[1]);
                 var n = bstr.length;
@@ -385,6 +390,12 @@
          * Insert Or Update Ajax
          * */
         function ajaxConnec(data, url, formData) {
+
+            console.log('ajaxConnec');
+            console.log(data);
+            console.log(url);
+            console.log(formData);
+
             $.ajax({
                 type: 'post',
                 url: url,

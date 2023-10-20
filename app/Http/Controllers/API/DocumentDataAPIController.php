@@ -64,6 +64,17 @@ class DocumentDataAPIController extends Controller {
                 if ($request->input('tab_cnt')) {
                     $query->tab_cnt = $request->input('tab_cnt');
                 }
+
+                // data version
+                if($request->input('data_version')) {
+                    $query->data_version = $request->input('data_version');
+                }
+
+                // view version
+                if($request->input('view_version')) {
+                    $query->view_version = $request->input('view_version');
+                }
+
                 $query->crt_user_sn = $sessionUsn;
                 $query->udt_user_sn = $sessionUsn;
                 $query->save();

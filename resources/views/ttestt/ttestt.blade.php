@@ -1,10 +1,10 @@
-@extends('pdf.master_pdf')
+@extends('layout.master')
 
 @push('custom-styles')
     {!! Html::style('css/점검기록표_style.css') !!}
 @endpush
 
-@section('pdf_content')
+@section('content')
     <!-- Loader 영역 -->
     <div id="div_for_loader"></div>
     <!-- Loader 영역 -->

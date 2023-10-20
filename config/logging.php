@@ -116,7 +116,7 @@ return [
 
         'api' => [
             'driver' => 'single',
-            'path' => storage_path('logs/papermanager_api.log'),
+            'path' => storage_path('logs/kedms_api.log'),
             'level' => 'debug',
         ],
     ],

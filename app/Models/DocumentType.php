@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class DocumentType
@@ -50,6 +51,8 @@ class DocumentType extends Model {
      * document_type_employ 조인
      */
     public function scopeJoinTypeEmploy($query){
+        Log::info('scopeJoinTypeEmploy : ');
+
         return $query->join('document_type_employ as dte', 'document_type.document_type_sn', '=', 'dte.document_type_sn')
             ->where('dte.entrps_sn', Auth::user()->entrps_sn);
     }

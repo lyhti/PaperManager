@@ -26,4 +26,19 @@ class DocumentTypeAPIController extends Controller {
             return $this->sendError($e->getMessage(), 200);
         }
     }
+
+    public function getCrntDocType(Request $request) {
+        try {
+            $entrpsSn = Auth::user()->entrps_sn;
+
+            $rtn = DocumentType::joinTypeEmploy()->get();
+
+            Log::info('Auth 업체번호 : '.$entrpsSn);
+            Log::info('결과값 : '.$rtn);
+
+            return $this->sendResponse($rtn, 'User retrieved successfully');
+        } catch (Exception $e){
+            return $this->sendError($e->getMessage(), 200);
+        }
+    }
 }
