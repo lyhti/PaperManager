@@ -47,7 +47,10 @@ pre {margin: 0 !important; font-size: var(--font-size); font-family: system-ui;}
 .float-left {float: left;}
 .line-height1 {line-height: 1;}
 .line-height12 {line-height: 1.2;}
+<<<<<<< HEAD
+=======
 .line-height25 {line-height: 2.5;}
+>>>>>>> 1061ba8a9dfbe33fa052044d6657d71e405fb1b9
 
 .display-none {
     display: none;
@@ -142,8 +145,11 @@ pre {margin: 0 !important; font-size: var(--font-size); font-family: system-ui;}
 .dist-left-mm-31 {margin-left: 31mm;}
 .dist-left-mm-33 {margin-left: 33mm;}
 
+<<<<<<< HEAD
+=======
 .dist-right-mm-3 {margin-right: 3mm;}
 
+>>>>>>> 1061ba8a9dfbe33fa052044d6657d71e405fb1b9
 .pad-top-mm-2 {padding-top: 2mm;}
 
 .wd-px-35 {width: 35px}
@@ -153,7 +159,10 @@ pre {margin: 0 !important; font-size: var(--font-size); font-family: system-ui;}
 .wd-px-90 {width: 90px}
 
 .wd-mm-6 {width: 6mm;}
+<<<<<<< HEAD
+=======
 .wd-mm-7 {width: 7mm;}
+>>>>>>> 1061ba8a9dfbe33fa052044d6657d71e405fb1b9
 .wd-mm-7_5 {width: 7.5mm;}
 .wd-mm-9 {width: 9mm;}
 .wd-mm-9_5 {width: 9.5mm;}
@@ -214,15 +223,24 @@ pre {margin: 0 !important; font-size: var(--font-size); font-family: system-ui;}
 .sub-header-font {font-family: "휴먼명조", "HCI Poppy";font-weight: bold;}
 .main-header-font {font-family: "굴림";font-weight: bold;}
 
+<<<<<<< HEAD
+.sign-modal:hover {
+=======
 .sign-img {position: absolute; top: -2mm; left: -0.4mm;}
 
 .sign-cursor:hover {
+>>>>>>> 1061ba8a9dfbe33fa052044d6657d71e405fb1b9
     cursor: pointer;
 }
 
 .tooltip-custom2:hover {
     cursor: help;
 }
+<<<<<<< HEAD
+.tooltip-custom2:hover .tooltip-custom-text2 {
+    display:block;
+}
+=======
 .tooltip-custom3:hover {
     cursor: help;
 }
@@ -233,6 +251,7 @@ pre {margin: 0 !important; font-size: var(--font-size); font-family: system-ui;}
     display:block;
 }
 
+>>>>>>> 1061ba8a9dfbe33fa052044d6657d71e405fb1b9
 .tooltip-custom-text2 {
     display: none;
     color: white;
@@ -240,6 +259,9 @@ pre {margin: 0 !important; font-size: var(--font-size); font-family: system-ui;}
     z-index: 1000;
     background: rgba(0, 0, 0, 0.7);
     padding: 10px;
+<<<<<<< HEAD
+    transform: translate(-10%,-80%);
+=======
     transform: translate(-5%,-80%);
     font-size: 14px;
     font-weight: normal !important;
@@ -253,9 +275,8 @@ pre {margin: 0 !important; font-size: var(--font-size); font-family: system-ui;}
     background: rgba(0, 0, 0, 0.7);
     padding: 10px;
     transform: translate(250%,-80%);
+>>>>>>> 1061ba8a9dfbe33fa052044d6657d71e405fb1b9
     font-size: 14px;
     font-weight: normal !important;
     text-align: left;
 }
-
-
